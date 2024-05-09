@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Web IoT</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <h1 class="flex justify-center text-5xl"> Đo nhiệt độ - Báo Cháy!!  </h1>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <script src="main.js"></script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+    .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    }
+            
+    .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+    }
+
+    .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    }
+
+    .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    }
+
+    input:checked + .slider {
+    background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+    border-radius: 34px;
+    }
+
+    .slider.round:before {
+    border-radius: 50%;
+    }
+    .ONL{
+visibility: hidden;
+}
+.OFF{
+visibility: hidden;
+}
+}
+    </style>
+</head>
+
+<body>
+    <table class="flex justify-center max-h-screen mt-6">
+        <tbody>
+            <tr>
+                <th class="table-auto border-separate border border-slate-400 w-80 h-80">
+                    <label class="switch flex justify-center">
+                        <input type="checkbox" id="LedToggleCheckbox" 
+                        onchange="checkLed() ? LedToggleStatus(true) : LedToggleStatus(false)">
+                        <span class="slider round"></span>
+                    </label>
+                    <div id="LedstatusText">LedOff</div>
+                </th>
+                <th class="table-auto border-separate border border-slate-400 w-80 h-80">
+                    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+                    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+                </th>
+                <th class="table-auto border-separate border border-slate-400 w-80 h-80">
+                    <h1>Thông Báo :</h1>
+                    <div id="Notice"> Nhiệt độ bình thường . </div>
+                </th>
+            </tr>
+            <tr>
+                <th class="table-auto border-separate border border-slate-400 w-80 h-80">
+                    <label class="switch flex justify-center">
+                        <input type="checkbox" id="BellToggleCheckbox" 
+                        onchange="checkBell() ? BellToggleStatus(true) : BellToggleStatus(false)">
+                        <span class="slider round"></span>
+                    </label>
+                    <div id="BellstatusText">BellOff</div>
+                </th>
+                <th class="table-auto border-separate border border-slate-400 w-80 h-80">
+                    <label class="switch flex justify-center">
+                        <input type="checkbox" id="ModeToggleCheckbox" onchange="ModeToggleStatus()">
+                        <span class="slider round"></span>
+                    </label>
+                    <div id="ModestatusText">Handmode</div>
+                </th>
+                <th class=" table-auto border-separate border border-slate-400 w-80 h-80">
+                    <h1 class="mb-2"> Bài tập lớn Môn IoT </h1>               
+                    <div class="grid grid-rows-3 grid-flow-col gap-4">
+                        <div class="row-span-1">Vũ Hoa Đức</div>
+                        <div class="row-span-1">Nguyễn Hữu Giang</div>
+                        <div class="row-span-1">Đỗ Văn Tuấn</div>
+                        <div class="col-span-1">211600256</div>
+                        <div class="col-span-1">211600257</div>
+                        <div class="col-span-1">211600258</div>
+                    </div>
+                    <h1 class="mt-2"> Lớp KTĐK&TĐH 2 K62 </h1>
+                </th>
+        </tbody>
+
+    </table>
+</body>
+
+</html>
